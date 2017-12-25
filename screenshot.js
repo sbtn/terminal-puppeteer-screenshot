@@ -1,11 +1,12 @@
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
+const yargs = require('yargs');
 
 // Puppeteer standard example for grabbing screenshots
 // https://github.com/GoogleChrome/puppeteer/blob/master/examples/screenshot-fullpage.js
 const capture = async (site, resolution) => {
-  const savePath = `./Screenshots/${site.replace(/http:\/\/|https:\/\//, '').replace(/\.|\//g, '_')}_${resolution.replace(/\s/g, '_')}.png`
 
+  const savePath = `./Screenshots/${site.replace(/http:\/\/|https:\/\//, '').replace(/\.|\//g, '_')}_${resolution.toString().replace(/\s/g, '_').replace(/\,/g, 'x')}.png`
   const browser = await puppeteer.launch({
     headless: true
   });
@@ -27,18 +28,22 @@ const capture = async (site, resolution) => {
   console.log(`Screenshot saved to: ${savePath}`);
 }
 
+const argv = yargs
+  .help()
+  .argv;
+
 // Parse arguments from terminal
-if (process.argv[2] === 'devices') {
+if (argv._[0] === 'devices') {
   for (let device of devices)
   console.log(`${device.name}`)
 } else {
-  const site = process.argv[2];
+  const site = argv._[0];
 
-  if (process.argv[3].substr(0, 3) === 'res') {
-    const resolution = process.argv[3].substr(3).split('x');
+  if (argv._[1].substr(0, 3) === 'res') {
+    const resolution = argv._[1].substr(3).split('x');
     capture(site, resolution);
   } else {
-    const device = process.argv[3];
+    const device = argv._[1];
     capture(site, device);
   }
 }

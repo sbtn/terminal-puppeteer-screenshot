@@ -1,6 +1,6 @@
 {
   "name": "terminal-puppeteer-screenshot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Screenshots with Google Puppeteer from a terminal interface",
   "main": "screenshot.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "Stephen Beaton",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^0.13.0"
+    "puppeteer": "^0.13.0",
+    "yargs": "^10.0.3"
   }
 }
