@@ -1,11 +1,11 @@
 # terminal-puppeteer-screenshot
 
 Capture full-height screenshots of web pages from a terminal interface.
-Powered by [Puppeteer](https://github.com/GoogleChrome/puppeteer) headless Chrome Node API and configured with arguments.
+Powered by [Puppeteer](https://github.com/GoogleChrome/puppeteer) headless Chrome Node API and configured with options.
 
 ## Example
 ```
-node screenshot.js https://www.wikipedia.org/ 'iPhone 6'
+node screenshot.js capture --siteurl=https://www.wikipedia.org/ --viewport='iPhone 6'
 ```
 
 <img src="Screenshots/www_wikipedia_org__iPhone_6.png" width="250" alt="iPhone 6 screenshot of wikipedia" style="display:block; margin: 40px auto;">
@@ -23,25 +23,25 @@ The Puppeteer dependency includes a system specific build of chromium (~70-110mb
 ## Usage
 In terminal from the project directory:
 ```
-node screenshot.js <siteurl> <resolution>
+node screenshot.js capture --siteurl=<siteurl> --viewport=<viewport>
 ```
 
-Where `<resolution>` can be a specific pixel size, prefixed with **res**:
+Where `<viewport>` can be a specific pixel dimension:
 
 ```
-node screenshot.js https://www.wikipedia.org/ res1024x768
+node screenshot.js capture --siteurl=https://www.wikipedia.org/ --viewport=1024x768
 ```
 
 Or by specifying a device:
 
 ```
-node screenshot.js https://www.wikipedia.org/ 'iPad landscape'
+node screenshot.js capture --siteurl=https://www.wikipedia.org/ --viewport='iPad landscape'
 ```
 
-For a list of available devices try the `devices` argument:
+For a list of available devices try the `devices` option:
 
 ```
-node screenshot.js devices
+node screenshot.js --devices
 ```
 
 ## Notes
