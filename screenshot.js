@@ -29,21 +29,28 @@ const capture = async (site, resolution) => {
 }
 
 const argv = yargs
+  .command('capture', 'Capture screenshot from specified URL with given resolution/device', {
+    siteurl: {
+      describe: 'URL of page to capture.',
+      demand: true,
+    },
+    viewport: {
+      describe: 'Resolution to simulate in capture',
+      demand: true,
+    }
+  })
   .help()
   .argv;
 
-// Parse arguments from terminal
-if (argv._[0] === 'devices') {
-  for (let device of devices)
-  console.log(`${device.name}`)
-} else {
-  const site = argv._[0];
+// List DeviceDescriptors
+if (argv.devices) {
+  devices.forEach((device) => console.log(`${device.name}`));
+}
 
-  if (argv._[1].substr(0, 3) === 'res') {
-    const resolution = argv._[1].substr(3).split('x');
-    capture(site, resolution);
+if (argv._[0] === 'capture') {
+  if ((devices.filter((device) => device.name === argv.viewport)).length === 0) {
+    capture(argv.siteurl, argv.viewport.split('x'));
   } else {
-    const device = argv._[1];
-    capture(site, device);
+    capture(argv.siteurl, argv.viewport);
   }
 }
